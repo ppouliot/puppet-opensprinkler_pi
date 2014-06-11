@@ -64,17 +64,19 @@ rtc-ds1307',
 
   file_line {'blacklist_spi-bcm2708':
     path    => '/etc/modprobe.d/raspi-blacklist.conf',
-    line    => '#blacklist spi-bcm2708',
-    match   => '^blacklist spi-bcm2708',
+    line    => '#blacklist spi-bcm2708 This line is managed by Puppet',
+    match   => 'blacklist spi-bcm2708',
   }
 
   file_line {'blacklist_i2c-bcm2708':
     path    => '/etc/modprobe.d/raspi-blacklist.conf',
-    line    => '#blacklist i2c-bcm2708',
-    match   => '^blacklist i2c-bcm2708',
+    line    => '#blacklist i2c-bcm2708  This line is managed by Puppet',
+    match   => 'blacklist i2c-bcm2708',
   }
   package {'i2c-tools':
     ensure => installed,
-    require => File_line['rtc_ds1307','blacklist_rtc_ds1307'],
+    require => File_line['rtc_ds1307',
+                         'blacklist_spi-bcm2708',
+                         'blacklist_i2c-bcm2708'],
   }
 }
