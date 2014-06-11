@@ -1,0 +1,17 @@
+{
+  "name": "puppet-opensprinkler_pi",
+  "version": "0.1.0",
+  "author": "Peter J. Pouliot",
+  "summary": "A module to configure OpenSprinkler on a RaspberryPi",
+  "license": "Apache 2.0",
+  "source": "https://github.com/ppouliot/puppet-opensprinkler_pi",
+  "project_page": "https://github.com/ppouliot/puppet-opensprinkler_pi",
+  "issues_url": "https://github.com/ppouliot/puppet-opensprinkler_pi/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_range": ">= 1.0.0"
+    }
+  ]
+}
+
