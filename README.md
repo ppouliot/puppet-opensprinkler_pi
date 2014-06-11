@@ -9,32 +9,26 @@ The online user manual for the OpenSprinkler Pi  can be found here:
   http://rayshobby.net/?page_id=5874
 
 The module was developed using Puppet 3.6.1.  Puppet and all supporting applications
-were repackaged for the raspberrypi using this script.
+were repackaged for the raspberrypi using this script:
 
+  http://github.com/ppouliot/rpi-build_puppet.git
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+Currently the following functionality exists:
 
-## Reference
+To install the OSPi application
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+  class {'opensprinkler_pi::ospi':}
 
-## Limitations
+To configure a TP-Link TL-WN725N Wireless adapter
 
-This is where you list OS compatibility, version compatibility, etc.
+  class {'opensprinkler_pi::wifi':}
 
-## Development
+To configure the RTC hardware
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+  class {'opensprinkler_pi::rtc':}
 
-## Release Notes/Contributors/Etc **Optional**
+All are currently a work in progress.
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+ALl work is licensed under an Apache 2.0 License
