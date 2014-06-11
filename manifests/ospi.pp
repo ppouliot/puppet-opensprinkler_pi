@@ -61,7 +61,6 @@ class opensprinkler_pi::ospi (
 
   file{ $ospi_startup_script:
     ensure  => file,
-#    content => template("opensprinkler_pi/templates/ospi.sh.erb"),
     content => $ospi_startup_script_content,
     mode    => '0755',
     owner   => 'root',

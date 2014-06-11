@@ -45,9 +45,6 @@ class opensprinkler_pi::rtc (
   file {'/etc/modules':
     ensure => present,
   }
-  file {'/etc/modprobe.d/raspi-blacklist.conf':
-    ensure => present,
-  }
 
   file_line {'rtc_ds1307':
     path    => '/etc/modules',
@@ -67,15 +64,13 @@ rtc-ds1307',
 
   file_line {'blacklist_spi-bcm2708':
     path    => '/etc/modprobe.d/raspi-blacklist.conf',
-    line    => '# Puppet Managed: spi-bcm2708
-#blacklist spi-bcm2708
+    line    => '#blacklist spi-bcm2708',
     match   => '^blacklist spi-bcm2708',
   }
 
   file_line {'blacklist_i2c-bcm2708':
     path    => '/etc/modprobe.d/raspi-blacklist.conf',
-    line    => '# Puppet Managed: i2c-bcm2708
-#blacklist i2c-bcm2708
+    line    => '#blacklist i2c-bcm2708',
     match   => '^blacklist i2c-bcm2708',
   }
   package {'i2c-tools':
@@ -83,4 +78,3 @@ rtc-ds1307',
     require => File_line['rtc_ds1307','blacklist_rtc_ds1307'],
   }
 }
-#blacklist i2c-bcm2708',
