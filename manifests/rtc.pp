@@ -35,10 +35,8 @@
 #
 #
 class opensprinkler_pi::rtc (
-    $rtc_driver_url    = $opensprinkler_pi::params::rtc_driver_url,
-    $rtc_driver_file   = $opensprinkler_pi::params::rtc_driver_file,
-    $rtc_driver_module = $opensprinkler_pi::params::rtc_driver_module,
-    $rtc_driver_home   = $opensprinkler_pi::params::rtc_driver_home,
+
+    $rtc_kernel_modules = $opensprinkler_pi::params::rtc_kernel_modules
 
 ) inherits opensprinkler_pi::params {
 

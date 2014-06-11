@@ -34,4 +34,7 @@ class opensprinkler_pi::params {
   $wifi_driver_home            = "/lib/modules/${kernelversion}/kernel/drivers/net/wireless/"
   $wifi_driver_module          = '8188eu.ko'
 
+  $rtc_kernel_modules          ='i2c-bcm2708
+i2c-dev
+rtc-ds1307'
 }
