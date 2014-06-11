@@ -43,20 +43,10 @@ class opensprinkler_pi::rtc (
 ) inherits opensprinkler_pi::params {
 
   file {'/etc/modules':
-    ensure => present,
+    ensure  => present,
+    content => template("${module_name}/modules.erb"),
   }
 
-  file_line {'rtc_ds1307':
-    path    => '/etc/modules',
-    line    => '# This line is managed by Puppet
-i2c-bcm2708
-i2c-dev
-rtc-ds1307',
-    require => File['/etc/modules'],
-  }
-
-# File: /etc/modprobe.d/raspi-blacklist.conf
-##
   file {'/etc/modprobe.d/raspi-blacklist.conf':
     ensure => present,
   }
@@ -64,19 +54,20 @@ rtc-ds1307',
 
   file_line {'blacklist_spi-bcm2708':
     path    => '/etc/modprobe.d/raspi-blacklist.conf',
-    line    => '#blacklist spi-bcm2708 This line is managed by Puppet',
+    line    => "#blacklist spi-bcm2708 ### Puppet Managed ${name} ###",
     match   => 'blacklist spi-bcm2708',
   }
 
   file_line {'blacklist_i2c-bcm2708':
     path    => '/etc/modprobe.d/raspi-blacklist.conf',
-    line    => '#blacklist i2c-bcm2708  This line is managed by Puppet',
+    line    => "#blacklist i2c-bcm2708 ### Puppet Managed ${name} ###",
     match   => 'blacklist i2c-bcm2708',
   }
   package {'i2c-tools':
     ensure => installed,
-    require => File_line['rtc_ds1307',
-                         'blacklist_spi-bcm2708',
-                         'blacklist_i2c-bcm2708'],
+    require =>[
+              File['/etc/modules'], 
+              File_line[ 'blacklist_spi-bcm2708',
+                         'blacklist_i2c-bcm2708']],
   }
 }
