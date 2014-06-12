@@ -1,42 +1,20 @@
 # == Class: opensprinkler_pi::rtc
+# The rtc puppet class is based on the information found here:
 #
-# Full description of class opensprinkler_pi here.
-# For additional information see the following urls:
-# http://laurenthinoul.com/how-to-install-tp-link-tl-wn725n-on-raspberry-pi/
-# http://www.raspberrypi.org/forums/viewtopic.php?p=462982
-
+#   http://rayshobby.net/mediawiki/index.php?title=Set_Up_RPi,_RTC,_WiFi,_Data_Log
+#
+# It ensures the RTC drivers are enabled on the raspberrypi device.
+#
 # === Parameters
 #
-# Document parameters here.
-#
-# [*rtc_driver_url*]
-#   The web location of the folder containing the rtc_driver_files.
-#
-# [*rtc_driver_file*]
-#   A tarball containing the binary driver
-#
-# [*rtc_driver_module*]
-#   The name of the binary module file
-#
-# [*rtc_driver_home*]
-#   The place where we will be putting the binary wireless module
-#   to allow us to automatically load the driver module.
-#
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# [*rtc_kernel_modules*]
+#   The names of the modules to be included in the /etc/modules.
+#   currently supplied values are organized in the params.pp
 #
 #
 class opensprinkler_pi::rtc (
 
-    $rtc_kernel_modules = $opensprinkler_pi::params::rtc_kernel_modules
+  $rtc_kernel_modules = $opensprinkler_pi::params::rtc_kernel_modules
 
 ) inherits opensprinkler_pi::params {
 
@@ -67,5 +45,12 @@ class opensprinkler_pi::rtc (
               File['/etc/modules'], 
               File_line[ 'blacklist_spi-bcm2708',
                          'blacklist_i2c-bcm2708']],
+  }
+
+  
+  file {'/etc/rc.local':
+    ensure  => file,
+    content => template("${module_name}/rc.local.erb"),
+    require => Package['i2c-tools'],
   }
 }

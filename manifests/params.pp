@@ -38,3 +38,5 @@ class opensprinkler_pi::params {
 i2c-dev
 rtc-ds1307'
 }
+  $watchdog_kernel_module      ='# Hardware Watchdog
+bcm2708_wdog'
